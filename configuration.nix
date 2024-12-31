@@ -42,6 +42,14 @@ in
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   networking.networkmanager.enable = true;
+  virtualisation.vmVariant = {
+    # give you some space to work with in the vm
+    virtualisation.diskSize = 4000;
+    # nix-shell fails without more memory
+    virtualisation.memorySize = 2048;
+    # tmpfs is too small to hold the packages we want
+    virtualisation.writableStoreUseTmpfs = false;
+  };
   
   services.xserver = {
     enable = true;
@@ -49,6 +57,16 @@ in
   };
   services.libinput.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
+
+  # Some development tools and packages needed to build
+  # the runelite launcher from source.
+  environment.systemPackages = with pkgs; [
+    emacs
+    wget
+    git
+    unzip
+    python3
+  ];
 
   users.mutableUsers = false;
   users.users.root.initialPassword = "password";
@@ -67,6 +85,8 @@ in
   home-manager.useUserPackages = true;
   home-manager.users.myuser = {pkgs, ... }: {
     home.file."Desktop/Runelite".source = runelite;
+    home.file."Desktop/setup_runelite_source_build.py".source = ./setup_runelite_source_build.py;
+    home.file."Desktop/setup_runelite_source_build.py".executable = true;
     home.stateVersion = "24.05";
   };
 
