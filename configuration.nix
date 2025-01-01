@@ -25,6 +25,7 @@ let
 
       phases = [ "installPhase" ];
 
+      # only needed to make the file executable
       installPhase = ''
           install -D $src $out
       '';
@@ -57,6 +58,8 @@ in
   };
   services.libinput.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
+
+  services.openssh.enable = true;
 
   # Some development tools and packages needed to build
   # the runelite launcher from source.
