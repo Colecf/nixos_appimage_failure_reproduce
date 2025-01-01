@@ -9,7 +9,7 @@ nixos-rebuild build-vm --flake '.#mysystem2411'
 nixos-rebuild build-vm --flake '.#mysystem2405'
 ```
 
-And then run them with `./result/bin/run-nixos-vm`.
+And then run them with `rm -f nixos.qcow2 && ./result/bin/run-nixos-vm`.
 
 Runelite will be on the deskop, and you can just double click
 to run it and get to the login page of the game (in 24.05).
@@ -19,3 +19,6 @@ close.
 There is also a python script on the desktop to download/build
 runelite from source to experiment with adding debug statements,
 but I haven't looked into this deeply.
+
+Sometimes the vm gets stuck on a black screen while booting up,
+but retrying fixes it.
