@@ -7,13 +7,6 @@
   ...
 }:
 let
-  specificTo2411 = if is2411 then {
-    hardware.graphics.enable = true;
-  } else {};
-  specificTo2405 = if !is2411 then {
-    hardware.opengl.enable = true;
-  } else {};
-
   runelite = pkgs.stdenv.mkDerivation {
       name = "runelite";
 
@@ -51,6 +44,7 @@ in
     # tmpfs is too small to hold the packages we want
     virtualisation.writableStoreUseTmpfs = false;
   };
+  hardware.opengl.enable = true;
   
   services.xserver = {
     enable = true;
@@ -104,4 +98,4 @@ in
 
   system.stateVersion = "24.05";
 
-} // specificTo2411 // specificTo2405
+}

@@ -22,3 +22,9 @@ but I haven't looked into this deeply.
 
 Sometimes the vm gets stuck on a black screen while booting up,
 but retrying fixes it.
+
+You can build the vm with a specific commit of nixpkgs using:
+`nixos-rebuild build-vm --override-input nixpkgs2411 github:nixos/nixpkgs/<commit> --flake '.#mysystem2411'`
+
+Using this, I bisected it and found the commit that causes the
+breakage is https://github.com/NixOS/nixpkgs/commit/19178a0b4bcb9339a8740970231c0a69e3d480d3
